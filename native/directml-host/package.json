@@ -1,0 +1,10 @@
+{
+  "name": "local-triage-native-host",
+  "version": "0.13.9",
+  "private": true,
+  "description": "Windows CPU native-messaging companion for Local Triage",
+  "license": "MPL-2.0",
+  "dependencies": {
+    "@huggingface/transformers": "4.2.0"
+  }
+}

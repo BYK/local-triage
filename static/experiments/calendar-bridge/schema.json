@@ -1,0 +1,77 @@
+[
+  {
+    "namespace": "calendarBridge",
+    "types": [
+      {
+        "id": "CalendarDetails",
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "name": { "type": "string" },
+          "color": { "type": "string" },
+          "visible": { "type": "boolean" }
+        }
+      },
+      {
+        "id": "EventOperationResult",
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "optional": true },
+          "calendar": { "$ref": "CalendarDetails" },
+          "title": { "type": "string" }
+        }
+      }
+    ],
+    "functions": [
+      {
+        "name": "list",
+        "type": "function",
+        "async": true,
+        "parameters": [],
+        "returns": {
+          "type": "array",
+          "items": { "$ref": "CalendarDetails" }
+        }
+      },
+      {
+        "name": "create",
+        "type": "function",
+        "async": true,
+        "parameters": [
+          { "name": "ics", "type": "string" },
+          { "name": "preferredCalendarId", "type": "string" }
+        ],
+        "returns": { "$ref": "EventOperationResult" }
+      },
+      {
+        "name": "setDetectedMessages",
+        "type": "function",
+        "async": true,
+        "parameters": [
+          { "name": "tabId", "type": "integer" },
+          {
+            "name": "messageIds",
+            "type": "array",
+            "items": { "type": "integer" }
+          }
+        ]
+      }
+    ],
+    "events": [
+      {
+        "name": "onActionClicked",
+        "type": "function",
+        "parameters": [
+          {
+            "name": "details",
+            "type": "object",
+            "properties": {
+              "messageId": { "type": "integer", "optional": true },
+              "tabId": { "type": "integer", "optional": true }
+            }
+          }
+        ]
+      }
+    ]
+  }
+]

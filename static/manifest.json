@@ -1,0 +1,71 @@
+{
+  "manifest_version": 3,
+  "name": "Local Triage",
+  "description": "Categorize, prioritize, and detect calendar events locally on-device.",
+  "version": "0.13.13",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "local-triage@byk.im",
+      "data_collection_permissions": {
+        "required": ["none"]
+      },
+      "strict_min_version": "153.0"
+    }
+  },
+  "permissions": [
+    "accountsRead",
+    "messagesRead",
+    "messagesUpdate",
+    "messagesTags",
+    "messagesTagsList",
+    "alarms",
+    "storage",
+    "menus",
+    "notifications",
+    "unlimitedStorage",
+    "nativeMessaging"
+  ],
+  "background": {
+    "scripts": ["background-health.js", "background.js"]
+  },
+  "action": {
+    "default_title": "Local Triage",
+    "default_popup": "popup.html",
+    "default_icon": "icons/local-triage.svg"
+  },
+  "message_display_action": {
+    "default_label": "",
+    "default_title": "Create calendar event",
+    "default_icon": "icons/calendar.svg",
+    "default_popup": "popup.html?eventReview=1"
+  },
+  "icons": {
+    "48": "icons/local-triage.svg",
+    "96": "icons/local-triage.svg"
+  },
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": true
+  },
+  "experiment_apis": {
+    "smartOrder": {
+      "schema": "experiments/smart-order/schema.json",
+      "parent": {
+        "scopes": ["addon_parent"],
+        "paths": [["smartOrder"]],
+        "script": "experiments/smart-order/implementation.js"
+      }
+    },
+    "calendarBridge": {
+      "schema": "experiments/calendar-bridge/schema.json",
+      "parent": {
+        "scopes": ["addon_parent"],
+        "paths": [["calendarBridge"]],
+        "script": "experiments/calendar-bridge/implementation.js"
+      }
+    }
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'"
+  }
+}

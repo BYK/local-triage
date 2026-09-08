@@ -1,0 +1,24 @@
+{
+  "name": "thunderbird-local-triage",
+  "version": "0.13.13",
+  "private": true,
+  "type": "module",
+  "description": "A local-first Thunderbird extension for automatic email categorization and importance ranking.",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "build:native": "npm run package && node scripts/build-native-host-fossilize.mjs",
+    "package": "npm run build && node scripts/package.mjs",
+    "test": "node --test",
+    "test:native-integration": "node scripts/integrate-native-event-host.mjs"
+  },
+  "dependencies": {
+    "@huggingface/transformers": "4.2.0"
+  },
+  "devDependencies": {
+    "esbuild": "0.25.9",
+    "fossilize": "^0.10.1"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

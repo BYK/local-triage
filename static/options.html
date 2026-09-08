@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Local Triage settings</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="options">
+    <main>
+      <header>
+        <img src="icons/local-triage.svg" alt="" />
+        <div>
+          <h1>Local Triage</h1>
+          <p>Local email categorization and importance ranking</p>
+        </div>
+      </header>
+
+      <form id="settings-form">
+        <section>
+          <h2>Behaviour</h2>
+          <label class="check">
+            <input name="enabled" type="checkbox" />
+            Automatically classify newly received messages
+          </label>
+          <label class="check">
+            <input name="useEmbeddings" type="checkbox" />
+            Use the local English/Turkish embedding model
+          </label>
+          <label class="check">
+            <input name="starUrgent" type="checkbox" />
+            Star messages classified as P0/urgent
+          </label>
+        </section>
+
+        <section>
+          <h2>Model</h2>
+          <label>
+            Model ID
+            <input name="modelId" type="text" spellcheck="false" />
+          </label>
+          <p class="help">
+            The quantized model is downloaded once and cached by the native
+            Windows companion. Inference runs outside Thunderbird so its
+            background process remains responsive. Message contents never
+            leave this computer.
+          </p>
+          <div class="grid">
+            <label>
+              Review threshold
+              <input name="minimumCategoryConfidence" type="number" min="0" max="1" step="0.05" />
+            </label>
+            <label>
+              Maximum body characters
+              <input name="maximumBodyCharacters" type="number" min="400" max="8000" step="100" />
+            </label>
+          </div>
+          <button id="self-test" type="button" class="secondary">Run model self-test</button>
+          <progress
+            id="embedding-model-progress"
+            class="model-progress"
+            max="100"
+            hidden
+          ></progress>
+          <p id="test-result" class="status" aria-live="polite"></p>
+        </section>
+
+        <section>
+          <h2>Categories</h2>
+          <label>
+            One per line: <code>Name | description | #colour</code>
+            <textarea name="categories" rows="12" spellcheck="false"></textarea>
+          </label>
+        </section>
+
+        <section>
+          <h2>Calendar event model</h2>
+          <p class="help">
+            Deterministic extraction owns the event date, time, duration, and
+            location. A local model writes concise English or Turkish titles
+            and descriptions. On Windows, Qwen3.5 0.8B runs through the native
+            CPU companion (approximately 668 MB, Q4 with FP32 activations).
+            The model is cached locally, concurrent requests share one load,
+            and English and Turkish output are validated before it is accepted.
+          </p>
+          <p id="native-companion-result" class="status" aria-live="polite"></p>
+          <button id="event-model-self-test" type="button" class="secondary">
+            Download and test event model
+          </button>
+          <progress
+            id="event-model-progress"
+            class="model-progress"
+            max="100"
+            hidden
+          ></progress>
+          <p id="event-model-result" class="status" aria-live="polite"></p>
+          <details id="event-model-diagnostics">
+            <summary>Event model diagnostics</summary>
+            <p class="help">
+              Includes native runtime stages for both models, local cache
+              activity, CPU details, and worker health. Email subjects and
+              bodies are not included.
+            </p>
+            <div class="diagnostic-actions">
+              <button id="refresh-event-model-diagnostics" type="button" class="secondary">
+                Refresh
+              </button>
+              <button id="copy-event-model-diagnostics" type="button" class="secondary">
+                Copy diagnostics
+              </button>
+            </div>
+            <textarea
+              id="event-model-diagnostics-output"
+              rows="14"
+              readonly
+              spellcheck="false"
+            ></textarea>
+          </details>
+        </section>
+
+        <div class="actions">
+          <button type="submit" class="primary">Save settings</button>
+          <button id="reset" type="button" class="secondary">Reset defaults</button>
+          <span id="notice" aria-live="polite"></span>
+        </div>
+      </form>
+    </main>
+    <script src="options.js"></script>
+  </body>
+</html>

@@ -1,0 +1,30 @@
+[
+  {
+    "namespace": "smartOrder",
+    "functions": [
+      {
+        "name": "setScore",
+        "type": "function",
+        "async": true,
+        "parameters": [
+          { "name": "messageId", "type": "integer" },
+          { "name": "score", "type": "number" }
+        ]
+      },
+      {
+        "name": "activateCurrent",
+        "type": "function",
+        "async": true,
+        "parameters": [],
+        "returns": { "type": "boolean" }
+      },
+      {
+        "name": "refresh",
+        "type": "function",
+        "async": true,
+        "parameters": [],
+        "returns": { "type": "boolean" }
+      }
+    ]
+  }
+]

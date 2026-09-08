@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Local Triage</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="popup">
+    <header>
+      <img src="icons/local-triage.svg" alt="" />
+      <div>
+        <h1>Local Triage</h1>
+        <p>Private, on-device email ranking</p>
+      </div>
+    </header>
+    <p id="status" class="status" aria-live="polite">Loading…</p>
+    <button id="classify-selected" class="primary">Classify selected</button>
+    <button id="create-event" class="secondary" hidden>Review detected event</button>
+    <p id="event-status" class="event-status" aria-live="polite" hidden></p>
+    <form id="event-editor" hidden>
+      <label>
+        Title
+        <input id="event-title" type="text" maxlength="200" required />
+      </label>
+      <div class="event-grid">
+        <label>
+          Start date
+          <input id="event-start-date" type="date" required />
+        </label>
+        <label>
+          Start time
+          <input id="event-start-time" type="time" required />
+        </label>
+        <label>
+          End date
+          <input id="event-end-date" type="date" required />
+        </label>
+        <label>
+          End time
+          <input id="event-end-time" type="time" required />
+        </label>
+      </div>
+      <label class="check">
+        <input id="event-all-day" type="checkbox" />
+        All-day event
+      </label>
+      <label>
+        Location or meeting link
+        <input id="event-location" type="text" maxlength="300" />
+      </label>
+      <label>
+        Calendar
+        <select id="event-calendar" required></select>
+      </label>
+      <label>
+        Notes
+        <textarea id="event-description" rows="4" maxlength="4000"></textarea>
+      </label>
+      <p id="event-timezone" class="help"></p>
+      <details id="event-diagnostics">
+        <summary>Extraction diagnostics</summary>
+        <pre id="event-diagnostics-content"></pre>
+      </details>
+      <div class="event-actions">
+        <button id="save-event" class="primary" type="submit">Add to calendar</button>
+        <button id="cancel-event" class="secondary" type="button">Cancel</button>
+      </div>
+    </form>
+    <button id="enable-smart-order" class="secondary">Sort by priority, then date</button>
+    <button id="open-settings" class="secondary">Settings</button>
+    <script src="popup.js"></script>
+  </body>
+</html>
